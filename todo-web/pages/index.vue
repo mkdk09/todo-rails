@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="user">
+    <p>{{ user.name }}</p>
     <AddTodo @submit="addTodo" />
     <TodoList :todos="todos"/>
   </div>
@@ -13,8 +14,10 @@ export default {
     AddTodo,
     TodoList,
   },
-  created () {
-    console.log("API_KEY:", process.env.API_KEY);
+  computed: {
+    user () {
+      return this.$store.state.currentUser;
+    }
   },
   data() {
     return {
