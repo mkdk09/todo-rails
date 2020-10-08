@@ -18,9 +18,18 @@ export default {
       title: "",
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.currentUser;
+    }
+  },
   methods: {
     handleSubmit () {
-      this.$emit("submit", this.title)
+      const todo = {
+        title: this.title,
+        user_id: this.user.id,
+      };
+      this.$emit("submit", todo)
       this.title = "";
     }
   }
