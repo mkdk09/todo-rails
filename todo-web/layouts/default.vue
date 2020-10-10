@@ -1,5 +1,9 @@
 <template>
   <v-app dark>
+    <div>
+      <Loading />
+      <Success />
+    </div>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -89,6 +93,8 @@
 </template>
 
 <script>
+import Loading from "@/components/Loading";
+import Success from "@/components/Success";
 export default {
   data () {
     return {
@@ -100,6 +106,10 @@ export default {
       rightDrawer: false,
       title: 'Todo App'
     }
+  },
+  components: {
+    Loading,
+    Success,
   },
   computed: {
     user () {

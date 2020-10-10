@@ -35,6 +35,13 @@ export default {
     login () {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
+          this.$store.commit("setNotice", {
+            status: true,
+            message: "ログインしました",
+          });
+          setTimeout(() => {
+            this.$store.commit("setNotice",{});
+          }, 2000);
           this.$router.push("/");
         }).catch(error => {
           console.log(error);
