@@ -8,6 +8,10 @@ const store = () => {
     state: {
       currentUser: null,
       loading: false,
+      notification: {
+        status: false,
+        message: "",
+      },
     },
     mutations: {
       setUser(state, payload) {
@@ -15,6 +19,9 @@ const store = () => {
       },
       setLoading(state, payload) {
         state.loading = payload
+      },
+      setNotice(state, payload) {
+        state.notification = payload
       }
     },
     actions: {
