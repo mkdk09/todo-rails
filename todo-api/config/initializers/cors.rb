@@ -12,6 +12,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       origins 'https://todo-rails-9340f.firebaseapp.com/' 
     else 
       origins 'http://localhost:3000'
+    end
 
     resource '*',
       headers: :any,
