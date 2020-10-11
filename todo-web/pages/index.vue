@@ -1,33 +1,47 @@
 <template>
-  <div>
+  <div v-if="user">
+    <p>{{ user.name }}</p>
     <AddTodo @submit="addTodo" />
-    <TodoList :todos="todos"/>
+    <TodoList :todos="user.todos"/>
   </div>
 </template>
 
 <script>
 import AddTodo from "@/components/AddTodo";
 import TodoList from "@/components/TodoList";
+import axios from "@/plugins/axios";
 export default {
+  fetch({ store, redirect }) {
+    store.watch(
+      state => state.currentUser,
+      (newUser, oldUser) => {
+        if (!newUser) {
+          return redirect("/login");
+        }
+      }
+    );
+  },
   components: {
     AddTodo,
     TodoList,
   },
-  created () {
-    console.log("API_KEY:", process.env.API_KEY);
+  computed: {
+    user () {
+      return this.$store.state.currentUser;
+    }
   },
   data() {
-    return {
-      todos: []
-    };
+    return {};
   },
   methods: {
-    addTodo (title) {
-      this.todos.push({
-        title
+    async addTodo (todo) {
+      const { data } = await axios.post("/v1/todos", { todo });
+      this.$store.commit("setUser", {
+        ...this.user,
+        todos: [...this.user.todos, data]
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
